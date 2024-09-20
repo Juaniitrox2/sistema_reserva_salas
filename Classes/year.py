@@ -4,7 +4,7 @@
         - No puede ser menor a 2024 (no se puede reservar el pasado)
 """
 
-from Classes.time import BaseTime
+from Classes.basetime import BaseTime
 from Classes.exceptions import InvalidDateValue
 
 class Year(BaseTime):

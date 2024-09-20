@@ -1,14 +1,15 @@
-""" 
-    Define la clase abstracta tiempo, la cual determina una base sobre la cual funciona
+"""
+    Define una hora del día
 """
 
-from abc import ABC
+from Classes.basetime import BaseTime
 
-class BaseTime(ABC):
-    """Una cantidad de tiempo determinada"""
+class Time:
+    """Una hora de cualquier día"""
 
-    def __init__(self, value: int) -> None:
-        pass
+    def __init__(self, hour: BaseTime, minute: BaseTime) -> None:
+        self.__hour = hour
+        self.__minute = minute
 
-    def __str__(self):
-        """Muestra la cantidad de tiempo en formato"""
+    def __str__(self) -> str:
+        return f"{str(self.__hour)}:{str(self.__minute)}:00"

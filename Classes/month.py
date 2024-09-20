@@ -4,7 +4,7 @@
         - Tiene que ser un integer
 """
 
-from Classes.time import BaseTime
+from Classes.basetime import BaseTime
 from Classes.exceptions import InvalidDateValue
 
 class Month(BaseTime):
