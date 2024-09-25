@@ -8,7 +8,7 @@ from Classes.hour import Hour
 from Classes.minute import Minute
 from Classes.time import Time
 from Classes.date import Date
-from Classes.datetime import Date
+from Classes.datetime import DateTime
 from Classes.exceptions import InvalidDateValue
 
 class TestDate(unittest.TestCase):
@@ -48,9 +48,10 @@ class TestDate(unittest.TestCase):
         with self.assertRaises(InvalidDateValue):
             Hour(-5)
 
-    def test_hora_del_dia_invalida(self):
+    def test_fecha_invalida_levanta_error(self):
         with self.assertRaises(InvalidDateValue):
-            Date(Hour())
+            newdate = Date(Day(33), Month(13), Year(2023))
+
             
 
 if __name__ == "__main__":

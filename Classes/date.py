@@ -8,6 +8,14 @@ class Date:
     """Una fecha de un año del 2024+"""
 
     def __init__(self, day: BaseTime, month: BaseTime, year: BaseTime) -> None:
+        """Genera una fecha de un año específico
+        
+            Args:
+                - day: Day
+                - month: Month
+                - year: Year
+        """
+
         self.__day = day
         self.__month = month
         self.__year = year
