@@ -34,6 +34,7 @@ class Room:
         return False
 
 class BookingSystem:
+    """Un sistema de reservas"""
     def __init__(self):
         self.__salas = {}
 
