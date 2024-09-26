@@ -18,9 +18,12 @@ class Date:
                 - year: Year
         """
 
-        self.__day = Day(day)
-        self.__month = Month(month)
-        self.__year = Year(year)
+        self._day = Day(day)
+        self._month = Month(month)
+        self._year = Year(year)
 
     def __str__(self) -> str:
-        return f"{str(self.__day)} / {str(self.__month)} / {str(self.__year)}"
+        return f"{str(self._day)} / {str(self._month)} / {str(self._year)}"
+
+    def __eq__(self, other: "Date") -> bool:
+        return self._day == other._day and self._month == other._month and self._year == other._year
