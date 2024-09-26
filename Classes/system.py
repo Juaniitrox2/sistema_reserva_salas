@@ -78,6 +78,9 @@ class BookingSystem:
                     for room in self.__rooms.values() if len(room.has_booking_on_date(date)) > 0]
         
         return bookings
+    
+    def available_rooms(self) -> list[str]:
+        return [room for room in self.__rooms.keys()]
         
     def __verify_room(self, room_name: str):
         """Valida si la sala existe y si no, levanta una excepción"""

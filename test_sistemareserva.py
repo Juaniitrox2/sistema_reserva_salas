@@ -59,6 +59,16 @@ class TestDate(unittest.TestCase):
         res = sistema.get_bookings_for_day(DateTime(2024, 11, 23, 23, 00))
         self.assertEqual([], res)
 
+    def test_sistema_muestra_salas_disponibles_correctamente(self):
+        s1 = Room("S1", 3)
+        s2 = Room("S2", 5)
+
+        sys = BookingSystem()
+        sys.add_room(s1)
+        sys.add_room(s2)
+
+        self.assertEqual(["S1", "S2"], sys.available_rooms())
+
 
 if __name__ == "__main__":
     unittest.main() 
