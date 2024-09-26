@@ -20,9 +20,11 @@ class Room:
 
     @property
     def capacity(self):
+        """Retorna la capacidad de la sala"""
         return self.__maximum_capacity
 
     def book(self, interval: Interval):
+        """Reserva la sala por un periodo de tiempo específico"""
         self.__bookings.append(interval)
 
     def is_occupied_on(self, interval: Interval) -> bool:

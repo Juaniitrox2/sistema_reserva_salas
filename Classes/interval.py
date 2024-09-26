@@ -1,6 +1,7 @@
 """
-    Define la clase intervalo, esta consiste entre dos fechas que conforman un intervalo de tiempo determinado, 
-    desde un día a una hora hasta otro día a otra hora
+    Define la clase intervalo, esta consiste entre dos fechas que conforman 
+    un intervalo de tiempo determinado, desde un día a una hora 
+    hasta otro día a otra hora
 """
 
 from Classes.datetime import DateTime
