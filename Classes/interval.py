@@ -6,6 +6,8 @@
 from Classes.datetime import DateTime
 
 class Interval:
+    """Un intervalo de tiempo de dos fechas, inicio y fin"""
+
     def __init__(self, starting_date: DateTime, ending_date: DateTime):
         self._start = starting_date
         self._end = ending_date
@@ -15,5 +17,4 @@ class Interval:
 
     def overlaps_with(self, other_interval: "Interval") -> bool:
         """Retorna si el intervalo se pisa con otro en alguna parte"""
-
-        return True
+        return (self._end > other_interval._start or self._start < other_interval._end) # pylint: disable=W0212

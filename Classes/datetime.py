@@ -21,3 +21,6 @@ class DateTime:
 
     def __gt__(self, other):
         return self._date > other._date or (self._date == other._date and self._time > other._time)
+
+    def __lt__(self, other):
+        return other > self
