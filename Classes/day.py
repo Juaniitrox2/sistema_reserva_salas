@@ -14,7 +14,7 @@ class Day(BaseTime):
         if value < 1 or value > 31:
             raise InvalidDateValue("Día invalido")
 
-        self.__value = value
+        self._value = value
 
     def __str__(self):
-        return str(self.__value)
+        return str(self._value)

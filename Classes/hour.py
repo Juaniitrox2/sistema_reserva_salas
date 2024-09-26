@@ -14,7 +14,7 @@ class Hour(BaseTime):
         if value < 0 or value > 23:
             raise InvalidDateValue("Hora inválida")
 
-        self.__value = value
+        self._value = value
 
     def __str__(self):
-        return str(self.__value)
+        return str(self._value)

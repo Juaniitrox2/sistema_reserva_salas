@@ -14,7 +14,7 @@ class Month(BaseTime):
         if value < 1 or value > 12:
             raise InvalidDateValue("Mes invalido")
 
-        self.__value = value
+        self._value = value
 
     def __str__(self) -> str:
-        return str(self.__value)
+        return str(self._value)

@@ -16,11 +16,14 @@ class DateTime:
     def __str__(self) -> str:
         return f"{str(self._date)} - {str(self._time)}"
 
-    def __eq__(self, other):
+    def __eq__(self, other: "DateTime"):
         return self._date == other._date and self._time == other._time
 
-    def __gt__(self, other):
-        return self._date > other._date or (self._date == other._date and self._time > other._time)
-
-    def __lt__(self, other):
-        return other > self
+    def __gt__(self, other: "DateTime"):
+        return ((self._date > other._date) or (self._date == other._date and self._time > other._time))
+    
+    def __ge__(self, other: "DateTime"):
+        return (self > other or self == other)
+    
+    def __hash__(self) -> int:
+        return hash((self._date, self._time))

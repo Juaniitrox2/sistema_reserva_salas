@@ -14,7 +14,7 @@ class Minute(BaseTime):
         if value < 0 or value > 59:
             raise InvalidDateValue("Minuto inválido")
 
-        self.__value = value
+        self._value = value
 
     def __str__(self) -> str:
-        return str(self.__value)
+        return str(self._value)

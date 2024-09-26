@@ -14,7 +14,7 @@ class Year(BaseTime):
         if value < 2024:
             raise InvalidDateValue("Año inválido")
 
-        self.__value = value
+        self._value = value
 
     def __str__(self) -> str:
-        return str(self.__value)
+        return str(self._value)
