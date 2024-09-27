@@ -35,7 +35,7 @@ class Interval:
 
     def overlaps_with(self, other_interval: "Interval") -> bool:
         """Retorna si el intervalo se pisa con otro en alguna parte"""
-        return (self.end > other_interval.start or self.start < other_interval.end) # pylint: disable=W0212
+        return ((self.end > other_interval.start and self.end < other_interval.end) or (self.start > other_interval.start and self.start < other_interval.end))
     
     def contains_date(self, date: DateTime) -> bool:
         return date >= self.start and date <= self.end 

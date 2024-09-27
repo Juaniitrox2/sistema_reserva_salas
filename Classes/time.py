@@ -12,7 +12,7 @@ class Time:
         self._minute = minute
 
     def __str__(self) -> str:
-        return f"{str(self._hour):02}:{str(self._minute):02}"
+        return f"{str(self._hour).zfill(2)}:{str(self._minute).zfill(2)}"
     
     def __gt__(self, other: "Time") -> bool:
         return self._hour > other._hour or (self._hour == other._hour and self._minute > other._minute)

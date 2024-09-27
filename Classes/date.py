@@ -23,7 +23,7 @@ class Date:
         self._year = Year(year)
 
     def __str__(self) -> str:
-        return f"{str(self._day):02}/{str(self._month):02}/{str(self._year)}"
+        return f"{str(self._day)}/{str(self._month)}/{str(self._year)}"
 
     def __eq__(self, other: "Date") -> bool:
         return self._day == other._day and self._month == other._month and self._year == other._year

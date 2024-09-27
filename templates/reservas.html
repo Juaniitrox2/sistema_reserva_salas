@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Sala</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container">
+    <h1 class="my-4">Reserva</h1>
+
+    <form action="{{ url_for('reservar') }}" method="POST">
+        <div class="mb-3">
+            <label for="sala" class="form-label">Sala a Reservar</label>
+            <select id="sala" name="sala" class="form-select" required>
+                {% for sala in salas %}
+                <option value="{{ sala }}">{{ sala }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <h5>Desde</h5>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="start_day" class="form-label">Día</label>
+                <input type="number" id="start_day" name="start_day" class="form-control" min="1" max="31" required>
+            </div>
+            <div class="col">
+                <label for="start_month" class="form-label">Mes</label>
+                <input type="number" id="start_month" name="start_month" class="form-control" min="1" max="12" required>
+            </div>
+            <div class="col">
+                <label for="start_year" class="form-label">Año</label>
+                <input type="number" id="start_year" name="start_year" class="form-control" required>
+            </div>
+            <div class="col">
+                <label for="start_hour" class="form-label">Hora</label>
+                <input type="number" id="start_hour" name="start_hour" class="form-control" min="0" max="23" required>
+            </div>
+            <div class="col">
+                <label for="start_minute" class="form-label">Minuto</label>
+                <input type="number" id="start_minute" name="start_minute" class="form-control" min="0" max="59" required>
+            </div>
+        </div>
+
+        <h5>Hasta</h5>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="end_day" class="form-label">Día</label>
+                <input type="number" id="end_day" name="end_day" class="form-control" min="1" max="31" required>
+            </div>
+            <div class="col">
+                <label for="end_month" class="form-label">Mes</label>
+                <input type="number" id="end_month" name="end_month" class="form-control" min="1" max="12" required>
+            </div>
+            <div class="col">
+                <label for="end_year" class="form-label">Año</label>
+                <input type="number" id="end_year" name="end_year" class="form-control" required>
+            </div>
+            <div class="col">
+                <label for="end_hour" class="form-label">Hora</label>
+                <input type="number" id="end_hour" name="end_hour" class="form-control" min="0" max="23" required>
+            </div>
+            <div class="col">
+                <label for="end_minute" class="form-label">Minuto</label>
+                <input type="number" id="end_minute" name="end_minute" class="form-control" min="0" max="59" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Reservar Sala</button>
+        <a href="/" class="btn btn-secondary">Volver</a>
+    </form>
+
+</body>
+
+</html>

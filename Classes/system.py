@@ -32,6 +32,7 @@ class Room:
 
         for date in self.__bookings:
             if date.overlaps_with(interval):
+                print(date)
                 return True
         return False
     
@@ -46,6 +47,9 @@ class Room:
         total = [str(interval) for interval in self.__bookings if interval.contains_date(date)]
 
         return total
+    
+    def get_bookings(self) -> list[Interval]:
+        return self.__bookings
 
 class BookingSystem:
     """Un sistema de reservas"""
@@ -74,13 +78,21 @@ class BookingSystem:
         self.get_room(room_name).remove_booking(booking_interval)
 
     def get_bookings_for_day(self, date):
+        """Devuelve todas las reservas que incluyen al día"""
         bookings = [(room.room_name, room.has_booking_on_date(date)) 
                     for room in self.__rooms.values() if len(room.has_booking_on_date(date)) > 0]
         
         return bookings
     
     def available_rooms(self) -> list[str]:
+        """Devuelve todas las salas disponibles"""
         return [room for room in self.__rooms.keys()]
+    
+    def get_room_bookings(self, room: str) -> list[Interval]:
+        """Devuelve todas las reservas para esa sala"""
+
+        self.__verify_room(room)
+        return self.get_room(room).get_bookings()
         
     def __verify_room(self, room_name: str):
         """Valida si la sala existe y si no, levanta una excepción"""
