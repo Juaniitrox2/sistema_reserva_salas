@@ -21,12 +21,12 @@ class Interval:
     def start(self):
         """La fecha inicial de un intervalo de tiempo"""
         return self.__start
-    
+
     @property
     def end(self):
         """La fecha final de un intervalo de tiempo"""
         return self.__end
-    
+
     def __str__(self) -> str:
         return f"{str(self.start)} | {str(self.end)}"
 
@@ -35,7 +35,12 @@ class Interval:
 
     def overlaps_with(self, other_interval: "Interval") -> bool:
         """Retorna si el intervalo se pisa con otro en alguna parte"""
-        return ((self.end > other_interval.start and self.end < other_interval.end) or (self.start > other_interval.start and self.start < other_interval.end))
-    
+        print(self.end < other_interval.end, self.end, "<", other_interval.end)
+        print(self.start < other_interval.end, self.start, "<", other_interval.start)
+
+        return ((self.end > other_interval.start and self.end < other_interval.end) or
+                (self.start > other_interval.start and self.start < other_interval.end))
+
     def contains_date(self, date: DateTime) -> bool:
-        return date >= self.start and date <= self.end 
+        """Retorna un boolean indicando si la fecha está conformada dentro del intervalo"""
+        return date >= self.start and date <= self.end

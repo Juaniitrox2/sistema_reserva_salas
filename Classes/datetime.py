@@ -21,9 +21,9 @@ class DateTime:
 
     def __gt__(self, other: "DateTime"):
         return ((self._date > other._date) or (self._date == other._date and self._time > other._time))
-    
+
     def __ge__(self, other: "DateTime"):
         return (self > other or self == other)
-    
+
     def __hash__(self) -> int:
         return hash((self._date, self._time))

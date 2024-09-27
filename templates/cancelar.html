@@ -17,7 +17,7 @@
             <label for="reserva" class="form-label">Selecciona la Reserva a Cancelar</label>
             <select id="reserva" name="reserva" class="form-select" required>
                 {% for reserva in reservas %}
-                <option value="{{ reserva }}">{{ reserva[0] }} - {{ reserva[1] }} a {{ reserva[2] }}</option>
+                <option value="{{ reserva }}">ID: {{ reserva[0] }} \ {{ reserva[1] }} de {{ reserva[2] }} a {{ reserva[3] }}</option>
                 {% endfor %}
             </select>
         </div>

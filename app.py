@@ -1,4 +1,9 @@
-from flask import Flask,redirect,url_for,render_template,request
+"""
+    Define las funciones y rutas para la página/app de Flask
+    Implementa el sistema de reservas creado orientado a objetos
+"""
+
+from flask import Flask,render_template,request
 from Classes.system import BookingSystem, Room
 from Classes.interval import Interval
 from Classes.datetime import DateTime
@@ -6,20 +11,25 @@ from Classes.datetime import DateTime
 app=Flask(__name__)
 
 def crear_sistema():
+    """Inicializa el programa principal"""
     sistema = BookingSystem()
     sistema.add_room(Room("Sala 1", 15))
     sistema.add_room(Room("Sala 2", 15))
     sistema.add_room(Room("Sala 3", 15))
 
-    #TODO: Agregar salas y reservas acá
-
     sistema.book_room("Sala 1", Interval(DateTime(2024, 1, 1, 0, 0), DateTime(2024, 1, 1, 6, 0)))
-    
+    sistema.book_room("Sala 1", Interval(DateTime(2024, 2, 20, 0, 0), DateTime(2024, 2, 20, 18, 0)))
+    sistema.book_room("Sala 2", Interval(DateTime(2024, 11, 22, 0, 0), DateTime(2024, 11, 23, 0, 0))) #pylint: disable=C0301
+    sistema.book_room("Sala 3", Interval(DateTime(2024, 11, 16, 0, 0), DateTime(2024, 11, 16, 19, 0))) #pylint: disable=C0301
+
+    sistema.book_room("Sala 3", Interval(DateTime(2024, 7, 18, 0, 0), DateTime(2024, 7, 18, 1, 0)))
+
     return sistema
 
 sistema_reservas = crear_sistema()
 
 def obtener_reservas():
+    """Devuelve una lista de todas las reservas actuales en la página"""
     reservas = []
 
     id_reserva = 0
@@ -27,24 +37,40 @@ def obtener_reservas():
         for reserva in sistema_reservas.get_room_bookings(sala):
             id_reserva += 1
             reservas.append((id_reserva, sala, reserva.start, reserva.end))
+
     return reservas
 
 def agregar_reserva(room: str, start, end):
+    """Agrega una reserva a una habitación"""
     booking_interval = Interval(start, end)
 
     sistema_reservas.book_room(room, booking_interval)
 
-def cancelar_reserva(room: str, start, end):
-    pass
+def cancelar_reserva(id_booking: int):
+    """Cancela una reserva para una habitación"""
 
-def form_a_datetime(form):
-    start = DateTime(int(form["start_year"]), int(form["start_month"]), int(form["start_day"]), int(form["start_hour"]), int(form["start_minute"]))
-    end = DateTime(int(form["end_year"]), int(form["end_month"]), int(form["end_day"]), int(form["end_hour"]), int(form["end_minute"]))
+    total = obtener_reservas()
+    for booking in total:
+        print(booking[0], id_booking)
+        if booking[0] == id_booking:
+            time_interval = Interval(booking[2], booking[3])
+            room = booking[1]
+
+            sistema_reservas.remove_booking(room, time_interval)
+
+
+def form_to_datetime(form):
+    """Transforma un form a datetime usando los int"""
+    start = DateTime(int(form["start_year"]), int(form["start_month"]),
+                     int(form["start_day"]), int(form["start_hour"]), int(form["start_minute"]))
+    end = DateTime(int(form["end_year"]), int(form["end_month"]),
+                   int(form["end_day"]), int(form["end_hour"]), int(form["end_minute"]))
 
     return start, end
 
 @app.route('/',methods=['GET','POST'])
 def home():
+    """Maneja la página principal, ruta / de la página"""
     if request.method=='POST':
         return render_template('index.html')
 
@@ -52,9 +78,10 @@ def home():
 
 @app.route('/reservar', methods=['GET', 'POST'])
 def reservar():
+    """Maneja la ruta /reservar de la página"""
     if request.method == "POST":
         form = request.form
-        start, end = form_a_datetime(form)
+        start, end = form_to_datetime(form)
 
         agregar_reserva(form["sala"], start, end)
 
@@ -63,10 +90,13 @@ def reservar():
 
 @app.route('/cancelar', methods=['GET', 'POST'])
 def cancelar():
+    """Controla la ruta /cancelar de la página"""
     if request.method == "POST":
         form = request.form
         booking = form.get("reserva")
-        cancelar_reserva(booking[1], booking[2], booking[3])
+
+        id_reserva = int(booking[1])
+        cancelar_reserva(id_reserva)
 
 
     return render_template("cancelar.html", reservas=obtener_reservas())
