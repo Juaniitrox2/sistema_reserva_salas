@@ -1,15 +1,15 @@
 #pylint: skip-file
 import unittest
 
-from Classes.year import Year
-from Classes.month import Month
-from Classes.day import Day
-from Classes.hour import Hour
-from Classes.minute import Minute
-from Classes.time import Time
-from Classes.date import Date
-from Classes.datetime import DateTime
-from Classes.exceptions import InvalidDateValue
+from Negocio.year import Year
+from Negocio.month import Month
+from Negocio.day import Day
+from Negocio.hour import Hour
+from Negocio.minute import Minute
+from Negocio.time import Time
+from Negocio.date import Date
+from Negocio.datetime import DateTime
+from Negocio.exceptions import InvalidDateValue
 
 class TestDate(unittest.TestCase):
     def test_año_menor_a_2024_tira_error(self):

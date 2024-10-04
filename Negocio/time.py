@@ -2,7 +2,7 @@
     Define una hora del día
 """
 
-from Classes.basetime import BaseTime
+from Negocio.basetime import BaseTime
 
 class Time:
     """Una hora de cualquier día"""

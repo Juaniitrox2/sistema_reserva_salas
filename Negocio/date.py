@@ -2,9 +2,9 @@
     Define una fecha (Día, Mes, Año)
 """
 
-from Classes.day import Day
-from Classes.month import Month
-from Classes.year import Year
+from Negocio.day import Day
+from Negocio.month import Month
+from Negocio.year import Year
 
 
 class Date:

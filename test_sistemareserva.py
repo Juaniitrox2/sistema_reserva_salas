@@ -1,10 +1,10 @@
 #pylint: skip-file
 import unittest
 
-from Classes.datetime import DateTime
-from Classes.interval import Interval
-from Classes.system import Room, BookingSystem
-from Classes.exceptions import InvalidRoom
+from Negocio.datetime import DateTime
+from Negocio.interval import Interval
+from Negocio.system import Room, BookingSystem
+from Negocio.exceptions import InvalidRoom
 
 class TestDate(unittest.TestCase):
     def test_reserva_se_pisa_con_otra(self):

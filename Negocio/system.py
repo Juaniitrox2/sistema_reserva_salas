@@ -3,8 +3,8 @@
 
 """
 
-from Classes.interval import Interval
-from Classes.exceptions import InvalidRoom
+from Negocio.interval import Interval
+from Negocio.exceptions import InvalidRoom, OccupiedRoom
 
 class Room:
     """Una sala con un proposito único"""
@@ -31,7 +31,7 @@ class Room:
         """Retorna un booleano indicando si la fecha está dentro de una reserva"""
 
         for date in self.__bookings:
-            if date.overlaps_with(interval):
+            if date.overlaps_with(interval) or interval == date:
                 print(date)
                 return True
     
@@ -66,7 +66,7 @@ class BookingSystem:
         """Reserva una sala en el sistema"""
         self.__verify_room(room_name)
         if self.get_room(room_name).is_occupied_on(date_interval):
-            raise InvalidRoom("La sala está ocupada en el horario solicitado")
+            raise OccupiedRoom("La sala está ocupada en el horario solicitado")
 
         self.get_room(room_name).book(date_interval)
 

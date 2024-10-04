@@ -4,8 +4,8 @@
         - No puede ser menor a 2024 (no se puede reservar el pasado)
 """
 
-from Classes.basetime import BaseTime
-from Classes.exceptions import InvalidDateValue
+from Negocio.basetime import BaseTime
+from Negocio.exceptions import InvalidDateValue
 
 class Year(BaseTime):
     """Un mes de un año"""

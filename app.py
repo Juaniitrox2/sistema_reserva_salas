@@ -4,27 +4,31 @@
 """
 
 from flask import Flask,render_template,request
-from Classes.system import BookingSystem, Room
-from Classes.interval import Interval
-from Classes.datetime import DateTime
+from Negocio.system import BookingSystem, Room
+from Persistencia.systemdao import BookingSystemDAO
+from Negocio.interval import Interval
+from Negocio.datetime import DateTime
 
 app=Flask(__name__)
 
 def crear_sistema():
     """Inicializa el programa principal"""
     sistema = BookingSystem()
+
     sistema.add_room(Room("Sala 1", 15))
     sistema.add_room(Room("Sala 2", 15))
     sistema.add_room(Room("Sala 3", 15))
 
-    sistema.book_room("Sala 1", Interval(DateTime(2024, 1, 1, 0, 0), DateTime(2024, 1, 1, 6, 0)))
-    sistema.book_room("Sala 1", Interval(DateTime(2024, 2, 20, 0, 0), DateTime(2024, 2, 20, 18, 0)))
-    sistema.book_room("Sala 2", Interval(DateTime(2024, 11, 22, 0, 0), DateTime(2024, 11, 23, 0, 0))) #pylint: disable=C0301
-    sistema.book_room("Sala 3", Interval(DateTime(2024, 11, 16, 0, 0), DateTime(2024, 11, 16, 19, 0))) #pylint: disable=C0301
+    daoSystem = BookingSystemDAO(sistema, "reservas.db")
 
-    sistema.book_room("Sala 3", Interval(DateTime(2024, 7, 18, 0, 0), DateTime(2024, 7, 18, 1, 0)))
+    #daoSystem.add_booking("Sala 1", Interval(DateTime(2024, 1, 1, 0, 0), DateTime(2024, 1, 1, 6, 0)))
+    #daoSystem.add_booking("Sala 1", Interval(DateTime(2024, 2, 20, 0, 0), DateTime(2024, 2, 20, 18, 0)))
+    #daoSystem.add_booking("Sala 2", Interval(DateTime(2024, 11, 22, 0, 0), DateTime(2024, 11, 23, 0, 0))) #pylint: disable=C0301
+    #daoSystem.add_booking("Sala 3", Interval(DateTime(2024, 11, 16, 0, 0), DateTime(2024, 11, 16, 19, 0))) #pylint: disable=C0301
 
-    return sistema
+    #daoSystem.add_booking("Sala 3", Interval(DateTime(2024, 7, 18, 0, 0), DateTime(2024, 7, 18, 1, 0)))
+
+    return daoSystem
 
 sistema_reservas = crear_sistema()
 
@@ -33,8 +37,8 @@ def obtener_reservas():
     reservas = []
 
     id_reserva = 0
-    for sala in sistema_reservas.available_rooms():
-        for reserva in sistema_reservas.get_room_bookings(sala):
+    for sala in sistema_reservas.get_rooms():
+        for reserva in sistema_reservas.show_bookings(sala):
             id_reserva += 1
             reservas.append((id_reserva, sala, reserva.start, reserva.end))
 
@@ -44,7 +48,7 @@ def agregar_reserva(room: str, start, end):
     """Agrega una reserva a una habitación"""
     booking_interval = Interval(start, end)
 
-    sistema_reservas.book_room(room, booking_interval)
+    sistema_reservas.add_booking(room, booking_interval)
 
 def cancelar_reserva(id_booking: int):
     """Cancela una reserva para una habitación"""
@@ -86,7 +90,7 @@ def reservar():
         agregar_reserva(form["sala"], start, end)
 
 
-    return render_template("reservas.html", salas=sistema_reservas.available_rooms())
+    return render_template("reservas.html", salas=sistema_reservas.get_rooms())
 
 @app.route('/cancelar', methods=['GET', 'POST'])
 def cancelar():

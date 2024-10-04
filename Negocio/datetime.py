@@ -2,8 +2,8 @@
     Define la clase DateTime conteniendo una fecha (DD/MM/AAAA) y hora (HH/MM/SS)
 """
 
-from Classes.time import Time
-from Classes.date import Date
+from Negocio.time import Time
+from Negocio.date import Date
 
 
 class DateTime:
@@ -12,6 +12,22 @@ class DateTime:
     def __init__(self, year, month, day, hour, minute):
         self._date = Date(day, month, year)
         self._time = Time(hour, minute)
+
+    def from_string(base_string: str) -> "DateTime":
+        """
+            Genera un DateTime en base a texto
+        
+            Args:
+                base_string (str): La fecha en formato stringusando [YYYY/MM/DD - HH:MM]
+
+            Returns:
+                DateTime: Objeto datetime creado con los valores  de texto entregados
+        """
+        split = base_string.split(" - ")
+        date = split[0].split("/")
+        time = split[1].split(":")
+
+        return DateTime(int(date[2]), int(date[1]), int(date[0]), int(time[0]), int(time[1]))
 
     def __str__(self) -> str:
         return f"{str(self._date)} - {str(self._time)}"

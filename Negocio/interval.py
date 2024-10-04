@@ -4,8 +4,8 @@
     hasta otro día a otra hora
 """
 
-from Classes.datetime import DateTime
-from Classes.exceptions import InvalidTimeFrame
+from Negocio.datetime import DateTime
+from Negocio.exceptions import InvalidTimeFrame
 
 class Interval:
     """Un intervalo de tiempo de dos fechas, inicio y fin"""
@@ -35,8 +35,6 @@ class Interval:
 
     def overlaps_with(self, other_interval: "Interval") -> bool:
         """Retorna si el intervalo se pisa con otro en alguna parte"""
-        print(self.end < other_interval.end, self.end, "<", other_interval.end)
-        print(self.start < other_interval.end, self.start, "<", other_interval.start)
 
         return ((self.end > other_interval.start and self.end < other_interval.end) or
                 (self.start > other_interval.start and self.start < other_interval.end))

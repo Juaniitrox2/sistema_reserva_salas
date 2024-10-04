@@ -10,6 +10,13 @@ class InvalidRoom(Exception):
     def __init__(self, message: str) -> None:
         self.message = message
 
+
+class OccupiedRoom(Exception):
+    """Error levantado cuando se intenta reservar una sala ya ocupada"""
+    def __init__(self, message: str) -> None:
+        self.message = message
+
+
 class InvalidTimeFrame(Exception):
     """Error levantado al ingresar fechas imposíbles"""
     def __init__(self, message: str):

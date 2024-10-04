@@ -4,8 +4,8 @@
         - Solo puede ser un int
 """
 
-from Classes.basetime import BaseTime
-from Classes.exceptions import InvalidDateValue
+from Negocio.basetime import BaseTime
+from Negocio.exceptions import InvalidDateValue
 
 class Day(BaseTime):
     """Un día de un mes"""

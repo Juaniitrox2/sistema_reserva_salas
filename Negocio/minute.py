@@ -4,8 +4,8 @@
         - Tiene que ser un integer
 """
 
-from Classes.basetime import BaseTime
-from Classes.exceptions import InvalidDateValue
+from Negocio.basetime import BaseTime
+from Negocio.exceptions import InvalidDateValue
 
 class Minute(BaseTime):
     """Un minuto de una hora"""

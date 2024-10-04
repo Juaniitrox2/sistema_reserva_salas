@@ -4,8 +4,8 @@
         - Tiene que ser un integer
 """
 
-from Classes.basetime import BaseTime
-from Classes.exceptions import InvalidDateValue
+from Negocio.basetime import BaseTime
+from Negocio.exceptions import InvalidDateValue
 
 class Month(BaseTime):
     """Un mes de un año"""
