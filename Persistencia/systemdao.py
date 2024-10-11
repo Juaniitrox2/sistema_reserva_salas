@@ -5,16 +5,10 @@ from Negocio.system import BookingSystem, Room
 from Negocio.interval import Interval
 from Negocio.exceptions import InvalidRoom, OccupiedRoom
 from Negocio.datetime import DateTime
+from Persistencia.systemdaointerface import SystemDaoInterface
 
-class BookingSystemDAO:
-    """Una clase data access object (DAO) encargada de un sistema de reservas"""
-
+class SQLBookingSystem(SystemDaoInterface):
     def __init__(self, system: BookingSystem, path: str) -> None:
-        """Crea un nuevo DAO y carga la tabla en caso de no existir
-        
-            Args:
-                Path (str): El camino/dirección del archivo de la base de datos
-        """
         self.__db_path = path
         self.__system = system
         self.__create_table()
@@ -33,20 +27,10 @@ class BookingSystemDAO:
             )
 
     def add_booking(self, room: str, booking: Interval):
-        """
-        Agrega una reserva a la base de datos.
-
-        Args:
-            room (str): Nombre de la sala.
-            booking (Interval): Reserva a agregar.
-
-        Raises:
-
-        """
-
         try:  
             reserved_room = self.__system.book_room(room, booking)
 
+            print(reserved_room)
             with sqlite3.connect(self.__db_path) as connection:
                 connection.execute(
                     "INSERT INTO reservas (sala_nombre, inicio, fin) VALUES (?, ?, ?)",
@@ -56,16 +40,6 @@ class BookingSystemDAO:
             print("Sala ya ocupada en esa fecha")
 
     def show_bookings(self, room_name: str) -> list[Interval]:
-        """
-            Devuelve todas las reservas existentes para una sala específica
-
-            Args:
-                room_name (str): El nombre de la sala
-
-            Returns:
-                list[Interval]
-        """
-
         with sqlite3.connect(self.__db_path) as connection:
             cursor = connection.execute(
                 "SELECT inicio, fin FROM reservas WHERE sala_nombre = ?",
@@ -79,8 +53,6 @@ class BookingSystemDAO:
         ]
     
     def remove_booking(self, room_name: str, interval: Interval) -> None:
-        """Remueve una reserva de la base de datos"""
-
         try:
             self.__system.remove_booking(room_name, interval)
 
@@ -95,4 +67,6 @@ class BookingSystemDAO:
     def get_rooms(self) -> list[Room]:
         return self.__system.available_rooms()
             
-        
+class JSONBookingSystem(SystemDaoInterface):
+    def __init__(self):
+        pass

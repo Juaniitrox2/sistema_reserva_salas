@@ -5,7 +5,7 @@
 
 from flask import Flask,render_template,request
 from Negocio.system import BookingSystem, Room
-from Persistencia.systemdao import BookingSystemDAO
+from Persistencia.systemdao import SQLBookingSystem, JSONBookingSystem
 from Negocio.interval import Interval
 from Negocio.datetime import DateTime
 
@@ -19,7 +19,7 @@ def crear_sistema():
     sistema.add_room(Room("Sala 2", 15))
     sistema.add_room(Room("Sala 3", 15))
 
-    daoSystem = BookingSystemDAO(sistema, "reservas.db")
+    daoSystem = SQLBookingSystem(sistema, "reservas.db")
 
     #daoSystem.add_booking("Sala 1", Interval(DateTime(2024, 1, 1, 0, 0), DateTime(2024, 1, 1, 6, 0)))
     #daoSystem.add_booking("Sala 1", Interval(DateTime(2024, 2, 20, 0, 0), DateTime(2024, 2, 20, 18, 0)))
